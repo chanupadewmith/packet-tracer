@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome! Register</title>
+  <link rel="icon" type="image/png" href="download.png">
+  <link rel="stylesheet"  href="regi.css">
+
+
+</head>
+<body>
+
+  <div class="card">
+    <div class="left">
+      <div>
+        <div class="brand" id="brandText">Travelista Tours</div>
+        <div class="tagline" id="taglineText">
+          Join us and start your journey across Sri Lanka with unforgettable beaches, hills, culture, and adventure.
+        </div>
+      </div>
+
+      <div class="left-bottom" id="leftBottomText">
+        🇱🇰 Discover Sri Lanka • Nature • Heritage • Adventure
+      </div>
+    </div>
+
+    <div class="right">
+  <div>
+    <div class="title" id="titleText">Create Account</div>
+    <div class="sub" id="subText">Register to start your travel journey</div>
+  </div>
+
+  <form action="register.php" method="POST">
+    <div class="two-cols">
+      <div class="field">
+        <label for="firstName" id="firstNameLabel">First Name</label>
+        <input type="text" name="firstName" id="firstName" placeholder="Enter first name" required>
+      </div>
+
+      <div class="field">
+        <label for="lastName" id="lastNameLabel">Last Name</label>
+        <input type="text" name="lastName" id="lastName" placeholder="Enter last name" required>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="emailInput" id="emailLabel">Email ID</label>
+      <input type="email" name="email" id="emailInput" placeholder="name@gmail.com" required>
+    </div>
+
+    <div class="field">
+      <label for="phoneInput" id="phoneLabel">Phone Number</label>
+      <input type="tel" name="phone" id="phoneInput" placeholder="+94 77 123 4567" required>
+    </div>
+
+    <div class="two-cols">
+      <div class="field">
+        <label for="passwordInput" id="passwordLabel">Password</label>
+        <input type="password" name="password" id="passwordInput" placeholder="••••••••" required>
+      </div>
+
+      <div class="field">
+        <label for="confirmPasswordInput" id="confirmPasswordLabel">Confirm Password</label>
+        <input type="password" name="confirmPassword" id="confirmPasswordInput" placeholder="••••••••" required>
+      </div>
+    </div>
+
+    <div class="terms">
+      <input type="checkbox" id="terms" required>
+      <label for="terms" id="termsText" style="display:inline; font-weight:500;">
+        I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a>
+      </label>
+    </div>
+
+    <button class="btn" id="registerBtn" type="submit">REGISTER</button>
+  </form>
+
+  <div class="or" id="orText">OR</div>
+
+  <div class="social">
+    <button class="sbtn" type="button">G</button>
+    <button class="sbtn" type="button">f</button>
+    <button class="sbtn" type="button"></button>
+  </div>
+
+  <div class="bottom" id="bottomText">
+    Already have an account? <a href="login.html">Login Now</a>
+  </div>
+</div>
+
+  <script>
+    let currentLanguage = localStorage.getItem("selectedLanguage") || "en";
+
+    const translations = {
+      en: {
+        brand: "Ceylon Travels",
+        tagline: "Join us and start your journey across Sri Lanka with unforgettable beaches, hills, culture, and adventure.",
+        leftBottom: "🇱🇰 Discover Sri Lanka • Nature • Heritage • Adventure",
+        title: "Create Account",
+        sub: "Register to start your travel journey",
+        firstName: "First Name",
+        firstNamePlaceholder: "Enter first name",
+        lastName: "Last Name",
+        lastNamePlaceholder: "Enter last name",
+        email: "Email ID",
+        emailPlaceholder: "name@gmail.com",
+        phone: "Phone Number",
+        phonePlaceholder: "+94 77 123 4567",
+        password: "Password",
+        passwordPlaceholder: "••••••••",
+        confirmPassword: "Confirm Password",
+        confirmPasswordPlaceholder: "••••••••",
+        terms: `I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a>`,
+        register: "REGISTER",
+        or: "OR",
+        bottom: `Already have an account? <a href="login.html">Login Now</a>`
+      },
+
+      si: {
+        brand: "Ceylon Travels",
+        tagline: "වෙරළ, කඳු, සංස්කෘතිය සහ සවාරියෙන් පිරි අමතක නොවන ශ්‍රී ලංකා ගමනක් අප සමඟ ආරම්භ කරන්න.",
+        leftBottom: "🇱🇰 ශ්‍රී ලංකාව සොයා බලන්න • ස්වභාවය • උරුමය • සවාරි",
+        title: "ගිණුමක් සාදන්න",
+        sub: "ඔබගේ සංචාරය ආරම්භ කිරීමට ලියාපදිංචි වන්න",
+        firstName: "මුල් නම",
+        firstNamePlaceholder: "මුල් නම ඇතුළත් කරන්න",
+        lastName: "අවසන් නම",
+        lastNamePlaceholder: "අවසන් නම ඇතුළත් කරන්න",
+        email: "ඊමේල් ලිපිනය",
+        emailPlaceholder: "name@gmail.com",
+        phone: "දුරකථන අංකය",
+        phonePlaceholder: "+94 77 123 4567",
+        password: "මුරපදය",
+        passwordPlaceholder: "••••••••",
+        confirmPassword: "මුරපදය තහවුරු කරන්න",
+        confirmPasswordPlaceholder: "••••••••",
+        terms: `මම <a href="#">නියමයන් සහ කොන්දේසි</a> සහ <a href="#">රහස්‍යතා ප්‍රතිපත්තිය</a> සමඟ එකඟ වෙමි`,
+        register: "ලියාපදිංචි වන්න",
+        or: "හෝ",
+        bottom: `දැනටමත් ගිණුමක් තිබේද? <a href="login.html">පිවිසෙන්න</a>`
+      },
+
+      ta: {
+        brand: "Ceylon Travels",
+        tagline: "மறக்க முடியாத கடற்கரை, மலை, கலாசாரம் மற்றும் சாகசங்களுடன் இலங்கை பயணத்தை எங்களுடன் தொடங்குங்கள்.",
+        leftBottom: "🇱🇰 இலங்கையை கண்டறியுங்கள் • இயற்கை • பாரம்பரியம் • சாகசம்",
+        title: "கணக்கு உருவாக்கவும்",
+        sub: "உங்கள் பயணத்தை தொடங்க பதிவு செய்யவும்",
+        firstName: "முதல் பெயர்",
+        firstNamePlaceholder: "முதல் பெயரை உள்ளிடவும்",
+        lastName: "கடைசி பெயர்",
+        lastNamePlaceholder: "கடைசி பெயரை உள்ளிடவும்",
+        email: "மின்னஞ்சல் முகவரி",
+        emailPlaceholder: "name@gmail.com",
+        phone: "தொலைபேசி எண்",
+        phonePlaceholder: "+94 77 123 4567",
+        password: "கடவுச்சொல்",
+        passwordPlaceholder: "••••••••",
+        confirmPassword: "கடவுச்சொல்லை உறுதிப்படுத்தவும்",
+        confirmPasswordPlaceholder: "••••••••",
+        terms: `நான் <a href="#">விதிமுறைகள் மற்றும் நிபந்தனைகள்</a> மற்றும் <a href="#">தனியுரிமைக் கொள்கை</a> ஆகியவற்றை ஏற்கிறேன்`,
+        register: "பதிவு செய்யவும்",
+        or: "அல்லது",
+        bottom: `ஏற்கனவே கணக்கு உள்ளதா? <a href="login.html">உள்நுழைக</a>`
+      }
+    };
+
+    function applyTranslations(lang) {
+      const t = translations[lang] || translations.en;
+
+      document.getElementById("brandText").innerText = t.brand;
+      document.getElementById("taglineText").innerText = t.tagline;
+      document.getElementById("leftBottomText").innerText = t.leftBottom;
+      document.getElementById("titleText").innerText = t.title;
+      document.getElementById("subText").innerText = t.sub;
+
+      document.getElementById("firstNameLabel").innerText = t.firstName;
+      document.getElementById("firstName").placeholder = t.firstNamePlaceholder;
+
+      document.getElementById("lastNameLabel").innerText = t.lastName;
+      document.getElementById("lastName").placeholder = t.lastNamePlaceholder;
+
+      document.getElementById("emailLabel").innerText = t.email;
+      document.getElementById("emailInput").placeholder = t.emailPlaceholder;
+
+      document.getElementById("phoneLabel").innerText = t.phone;
+      document.getElementById("phoneInput").placeholder = t.phonePlaceholder;
+
+      document.getElementById("passwordLabel").innerText = t.password;
+      document.getElementById("passwordInput").placeholder = t.passwordPlaceholder;
+
+      document.getElementById("confirmPasswordLabel").innerText = t.confirmPassword;
+      document.getElementById("confirmPasswordInput").placeholder = t.confirmPasswordPlaceholder;
+
+      document.getElementById("termsText").innerHTML = t.terms;
+      document.getElementById("registerBtn").innerText = t.register;
+      document.getElementById("orText").innerText = t.or;
+      document.getElementById("bottomText").innerHTML = t.bottom;
+    }
+
+    applyTranslations(currentLanguage);
+  </script>
+
+</body>
+</html>

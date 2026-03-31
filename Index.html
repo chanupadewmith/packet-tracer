@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ceylon Trails | Home</title>
+  <link rel="icon" type="image/png" href="download.png">
+  <link rel="stylesheet" href="home.css">
+</head>
+<body>
+
+<header class="navbar">
+  <div class="container nav-inner">
+
+    <div class="brand">
+      <a href="index.html" class="brand-link">
+        <div class="logobox">
+          <img src="download.png" alt="logo" class="logoicon">
+        </div>
+        <div class="mainname" id="siteName">Ceylon Trails</div>
+      </a>
+    </div>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search destinations or activities" />
+      <span class="search-icon">🔍</span>
+    </div>
+
+    <nav class="nav-links">
+      <select id="languageSelect" class="languageSelect">
+        <option value="en">English</option>
+        <option value="si">Sinhala</option>
+        <option value="ta">Tamil</option>
+      </select>
+
+      <!-- BEFORE LOGIN -->
+      <div id="guestMenu">
+        <a href="Registration.html" id="signUpText">Sign up</a>
+        <a href="login.html" class="login-btn" id="loginText">Log in</a>
+      </div>
+
+      <!-- AFTER LOGIN -->
+      <div id="userMenu" class="user-menu" style="display: none;">
+        <button id="accountBtn" class="account-btn" type="button">
+          <span id="accountName">Account</span>
+          <span class="dropdown-arrow">▼</span>
+        </button>
+
+        <div id="accountDropdown" class="account-dropdown" style="display: none;">
+          <a href="logout.php" id="logoutText">Log out</a>
+        </div>
+      </div>
+    </nav>
+
+  </div>
+</header>
+
+<section class="hero">
+  <div class="slider">
+    <div class="slide"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+  </div>
+
+  <div class="hero-content">
+    <h1 id="title">Welcome to Sri Lanka</h1>
+    <p id="desc">Explore beautiful destinations</p>
+  </div>
+</section>
+
+<main>
+  <section class="tabs-wrapper">
+    <div class="tabs">
+      <div class="tab active" data-tab="explore">Explore</div>
+      <div class="tab" data-tab="things">Travel Packages</div>
+      <div class="tab" data-tab="transport">Transport</div>
+      <div class="tab" data-tab="hotels">Hotels</div>
+    </div>
+
+    <div class="filters-row">
+      <div class="left-filters">
+        <button class="chip active" data-category="all">All</button>
+        <button class="chip" data-category="boat tours">Boat tours</button>
+        <button class="chip" data-category="temples & shrines">Temples & shrines</button>
+        <button class="chip" data-category="multi-day tours">Multi-day tours</button>
+        <button class="chip" data-category="couples">Couples</button>
+        <button class="chip" data-category="food tours">Food tours</button>
+        <button class="chip" data-category="tea plantations">Tea plantations</button>
+        <button class="chip" data-category="day trips">Day trips</button>
+      </div>
+
+      <div class="right-filters">
+        <span style="color:#666; font-size:15px;" id="sortLabel">Sort by</span>
+        <select class="sort-btn" id="sortSelect">
+          <option value="default">Recommended</option>
+          <option value="low">Price: Low to High</option>
+          <option value="high">Price: High to Low</option>
+          <option value="rating">Top Rated</option>
+          <option value="name">Name A-Z</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="results-count" id="resultsCount">0 results found</div>
+    <div class="cards" id="cardsContainer"></div>
+    <div class="no-results" id="noResults" style="display:none;">No matching results found.</div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="about" id="footerAbout">
+    Explore the beauty of Sri Lanka with ease. Discover top destinations, book trusted hotels, find reliable taxi services, and plan your perfect journey all in one place.
+  </div>
+
+  <div class="footer-bottom">
+    <div class="yatacontent" id="footerCopyright">
+      © 2026 Ceylon Trails. All rights reserved.
+    </div>
+
+    <div class="yatalink">
+      <a href="https://www.tiktok.com/@chanuwa_gaming" class="social-icon">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M20.52 3.48A11.8 11.8 0 0 0 12.02 0C5.38 0 .02 5.36.02 12c0 2.11.55 4.18 1.6 6.01L0 24l6.17-1.6A11.94 11.94 0 0 0 12.02 24c6.64 0 12-5.36 12-12 0-3.2-1.25-6.2-3.5-8.52zM12.02 21.82c-1.8 0-3.56-.48-5.1-1.38l-.36-.21-3.66.95.98-3.56-.23-.37a9.82 9.82 0 0 1-1.5-5.25c0-5.44 4.43-9.86 9.87-9.86 2.64 0 5.12 1.03 6.99 2.9a9.82 9.82 0 0 1 2.9 6.96c0 5.44-4.43 9.86-9.87 9.86zm5.39-7.36c-.3-.15-1.78-.88-2.05-.98-.27-.1-.47-.15-.67.15-.2.3-.77.98-.95 1.18-.17.2-.35.22-.65.07-.3-.15-1.28-.47-2.43-1.5-.9-.8-1.5-1.78-1.68-2.08-.18-.3-.02-.46.13-.6.13-.13.3-.35.45-.53.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.8.37-.27.3-1.05 1.03-1.05 2.52s1.08 2.93 1.23 3.13c.15.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.72.64.72.23 1.37.2 1.88.12.57-.08 1.78-.73 2.03-1.44.25-.72.25-1.33.18-1.45-.07-.12-.27-.2-.57-.35z"/>
+        </svg>
+      </a>
+
+      <a href="https://www.tiktok.com/@chanuwa_gaming" class="social-icon">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2v7.29c-1.06-.11-2.07-.57-2.8-1.3a3.72 3.72 0 0 1-1.1-2.42H6.5c0 3.58 2.86 6.53 6.5 6.92V2h-1zm5.5 3.02c-.9-.02-1.75-.27-2.5-.72V6.9c.78.45 1.7.7 2.65.7v2.35c-.95 0-1.87-.25-2.65-.7v6.13a5.1 5.1 0 1 1-5.1-5.1c.3 0 .6.03.9.08v2.35a2.7 2.7 0 1 0 2.7 2.67V2h1.5c.05 1.64 1.34 2.95 2.99 3.02v.0z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const languageSelect = document.getElementById("languageSelect");
+const searchInput = document.getElementById("searchInput");
+const cardsContainer = document.getElementById("cardsContainer");
+const chips = document.querySelectorAll(".chip");
+const tabs = document.querySelectorAll(".tab");
+const sortSelect = document.getElementById("sortSelect");
+const resultsCount = document.getElementById("resultsCount");
+const noResults = document.getElementById("noResults");
+
+const guestMenu = document.getElementById("guestMenu");
+const userMenu = document.getElementById("userMenu");
+const accountBtn = document.getElementById("accountBtn");
+const accountName = document.getElementById("accountName");
+const accountDropdown = document.getElementById("accountDropdown");
+
+let selectedCategory = "all";
+let selectedTab = "explore";
+let databasePlaces = [];
+let currentLanguage = localStorage.getItem("selectedLanguage") || "en";
+
+const uiTranslations = {
+  en: {
+    title: "Welcome to Sri Lanka 🇱🇰",
+    desc: "Sri Lanka is a beautiful island with golden beaches, green mountains, rich culture, and friendly people. Discover amazing places, enjoy local food, and experience unforgettable moments.",
+    searchPlaceholder: "Search destinations or activities",
+    resultsFound: "results found",
+    noResults: "No matching results found.",
+    from: "From",
+    signUp: "Sign up",
+    login: "Log in",
+    logout: "Log out",
+    sortBy: "Sort by",
+    recommended: "Recommended",
+    priceLowHigh: "Price: Low to High",
+    priceHighLow: "Price: High to Low",
+    topRated: "Top Rated",
+    nameAZ: "Name A-Z",
+    explore: "Explore",
+    travelPackages: "Travel Packages",
+    transport: "Transport",
+    hotels: "Hotels",
+    all: "All",
+    boatTours: "Boat tours",
+    temples: "Temples & shrines",
+    multiDay: "Multi-day tours",
+    couples: "Couples",
+    foodTours: "Food tours",
+    teaPlantations: "Tea plantations",
+    dayTrips: "Day trips",
+    footerAbout: "Explore the beauty of Sri Lanka with ease. Discover top destinations, book trusted hotels, find reliable taxi services, and plan your perfect journey all in one place.",
+    footerCopyright: "© 2026 TTS Brothers. All rights reserved."
+  },
+  si: {
+    title: "ශ්‍රී ලංකාවට සාදරයෙන් පිළිගනිමු 🇱🇰",
+    desc: "ශ්‍රී ලංකාව රන්වන් වෙරළ, හරිත කඳුකරය, සම්පන්න සංස්කෘතිය සහ මිත්‍රශීලී ජනතාවගෙන් පිරි සුන්දර රටකි. අලංකාර ස්ථාන සොයාගෙන රසවත් ආහාර සහ අමතක නොවන අත්දැකීම් භුක්ති විඳින්න.",
+    searchPlaceholder: "ගමනාන්ත හෝ ක්‍රියාකාරකම් සොයන්න",
+    resultsFound: "ප්‍රතිඵල හමු විය",
+    noResults: "ගැලපෙන ප්‍රතිඵල හමු නොවීය.",
+    from: "සිට",
+    signUp: "ලියාපදිංචි වන්න",
+    login: "පිවිසෙන්න",
+    logout: "ඉවත් වන්න",
+    sortBy: "අනුපිළිවෙල",
+    recommended: "නිර්දේශිත",
+    priceLowHigh: "මිල: අඩු සිට වැඩි",
+    priceHighLow: "මිල: වැඩි සිට අඩු",
+    topRated: "ඉහළම ශ්‍රේණිගත",
+    nameAZ: "නම A-Z",
+    explore: "සොයා බලන්න",
+    travelPackages: "සංචාර පැකේජ",
+    transport: "ප්‍රවාහනය",
+    hotels: "හෝටල්",
+    all: "සියල්ල",
+    boatTours: "බෝට්ටු සංචාර",
+    temples: "පන්සල් සහ පූජාස්ථාන",
+    multiDay: "දින කිහිපයක සංචාර",
+    couples: "ජෝඩු සඳහා",
+    foodTours: "ආහාර සංචාර",
+    teaPlantations: "තේ වතු",
+    dayTrips: "එක් දින සංචාර",
+    footerAbout: "ශ්‍රී ලංකාවේ සුන්දරත්වය පහසුවෙන් සොයා බලන්න. ප්‍රධාන ගමනාන්ත, විශ්වාසදායක හෝටල්, ආරක්ෂිත ටැක්සි සේවා සහ ඔබගේ සුන්දර ගමන එකම තැනක සැලසුම් කරන්න.",
+    footerCopyright: "© 2026 TTS Brothers. සියලු හිමිකම් ඇවිරිණි."
+  },
+  ta: {
+    title: "இலங்கைக்கு வரவேற்கிறோம் 🇱🇰",
+    desc: "இலங்கை அழகான தீவு நாடாகும். தங்கக் கடற்கரைகள், பசுமையான மலைகள் மற்றும் வளமான கலாசாரம் கொண்டது. அழகான இடங்களை கண்டறிந்து சுவையான உணவு மற்றும் மறக்க முடியாத அனுபவங்களை அனுபவிக்கவும்.",
+    searchPlaceholder: "இடங்கள் அல்லது செயல்பாடுகளைத் தேடுங்கள்",
+    resultsFound: "முடிவுகள் கிடைத்தன",
+    noResults: "பொருந்தும் முடிவுகள் எதுவும் இல்லை.",
+    from: "இருந்து",
+    signUp: "பதிவு செய்யவும்",
+    login: "உள்நுழையவும்",
+    logout: "வெளியேறு",
+    sortBy: "வரிசைப்படுத்து",
+    recommended: "பரிந்துரைக்கப்பட்டது",
+    priceLowHigh: "விலை: குறைவில் இருந்து அதிகம்",
+    priceHighLow: "விலை: அதிகத்தில் இருந்து குறைவு",
+    topRated: "அதிக மதிப்பீடு",
+    nameAZ: "பெயர் A-Z",
+    explore: "ஆராயுங்கள்",
+    travelPackages: "பயண தொகுப்புகள்",
+    transport: "போக்குவரத்து",
+    hotels: "ஹோட்டல்கள்",
+    all: "அனைத்தும்",
+    boatTours: "படகு சுற்றுலா",
+    temples: "கோவில்கள் மற்றும் புனித இடங்கள்",
+    multiDay: "பலநாள் சுற்றுலா",
+    couples: "தம்பதிகளுக்கு",
+    foodTours: "உணவு சுற்றுலா",
+    teaPlantations: "தேயிலை தோட்டங்கள்",
+    dayTrips: "ஒருநாள் சுற்றுலா",
+    footerAbout: "இலங்கையின் அழகை எளிதாக கண்டறியுங்கள். சிறந்த இடங்கள், நம்பகமான ஹோட்டல்கள், பாதுகாப்பான டாக்ஸி சேவைகள் மற்றும் உங்கள் சிறந்த பயணத்தை ஒரே இடத்தில் திட்டமிடுங்கள்.",
+    footerCopyright: "© 2026 TTS Brothers. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை."
+  }
+};
+
+function getTranslated(place, field) {
+  return place[field + "_" + currentLanguage] || place[field + "_en"] || "";
+}
+
+async function checkLoginStatus() {
+  try {
+    const response = await fetch("session_user.php");
+    const data = await response.json();
+
+    if (data.loggedIn) {
+      guestMenu.style.display = "none";
+      userMenu.style.display = "inline-block";
+      accountName.textContent = data.user.full_name || "Account";
+    } else {
+      guestMenu.style.display = "flex";
+      userMenu.style.display = "none";
+    }
+  } catch (error) {
+    console.error("Session check failed:", error);
+    guestMenu.style.display = "flex";
+    userMenu.style.display = "none";
+  }
+}
+
+async function fetchDatabasePlaces() {
+  try {
+    const response = await fetch("get_places.php");
+    const data = await response.json();
+    databasePlaces = Array.isArray(data) ? data : [];
+  } catch (error) {
+    console.error("Failed to load places:", error);
+    databasePlaces = [];
+  }
+  renderCards();
+}
+
+function renderCards() {
+  const searchValue = searchInput.value.toLowerCase().trim();
+
+  let filteredPlaces = databasePlaces.filter(place => {
+    const title = getTranslated(place, "title").toLowerCase();
+    const location = getTranslated(place, "location").toLowerCase();
+    const categoryEn = (place.category_en || "").toLowerCase();
+    const description = getTranslated(place, "description").toLowerCase();
+    const tab = (place.tab || "").toLowerCase();
+
+    const matchesSearch =
+      title.includes(searchValue) ||
+      location.includes(searchValue) ||
+      description.includes(searchValue);
+
+    const matchesCategory =
+      selectedCategory === "all" || categoryEn === selectedCategory;
+
+    const matchesTab = tab === selectedTab;
+
+    return matchesSearch && matchesCategory && matchesTab;
+  });
+
+  switch (sortSelect.value) {
+    case "low":
+      filteredPlaces.sort((a, b) => Number(a.price) - Number(b.price));
+      break;
+    case "high":
+      filteredPlaces.sort((a, b) => Number(b.price) - Number(a.price));
+      break;
+    case "rating":
+      filteredPlaces.sort((a, b) => Number(b.rating) - Number(a.rating));
+      break;
+    case "name":
+      filteredPlaces.sort((a, b) => getTranslated(a, "title").localeCompare(getTranslated(b, "title")));
+      break;
+  }
+
+  cardsContainer.innerHTML = "";
+
+  filteredPlaces.forEach((place, index) => {
+    cardsContainer.innerHTML += `
+      <div class="card place-card" data-index="${index}">
+        <div class="card-img">
+          <img src="${place.main_image}" alt="${getTranslated(place, "title")}">
+          <div class="fav">♡</div>
+        </div>
+        <div class="card-body">
+          <div class="category">${getTranslated(place, "category")} • ${getTranslated(place, "location")}</div>
+          <div class="card-title">${getTranslated(place, "title")}</div>
+          <div style="margin:8px 0; color:#666; font-size:14px;">${getTranslated(place, "description")}</div>
+          <div class="price">${uiTranslations[currentLanguage].from} <strong>$${place.price}</strong></div>
+          <div class="rating">★ ${place.rating}</div>
+        </div>
+      </div>
+    `;
+  });
+
+  document.querySelectorAll(".place-card").forEach((card, index) => {
+    card.addEventListener("click", () => {
+      localStorage.setItem("selectedPlace", JSON.stringify(filteredPlaces[index]));
+      window.location.href = "details.html";
+    });
+  });
+
+  document.querySelectorAll(".fav").forEach(fav => {
+    fav.addEventListener("click", (e) => {
+      e.stopPropagation();
+      fav.classList.toggle("active");
+      fav.textContent = fav.classList.contains("active") ? "♥" : "♡";
+    });
+  });
+
+  resultsCount.textContent = filteredPlaces.length + " " + uiTranslations[currentLanguage].resultsFound;
+  noResults.textContent = uiTranslations[currentLanguage].noResults;
+  noResults.style.display = filteredPlaces.length === 0 ? "block" : "none";
+}
+
+function applyLanguage(lang) {
+  currentLanguage = lang;
+  localStorage.setItem("selectedLanguage", lang);
+
+  document.getElementById("title").textContent = uiTranslations[lang].title;
+  document.getElementById("desc").textContent = uiTranslations[lang].desc;
+  document.getElementById("searchInput").placeholder = uiTranslations[lang].searchPlaceholder;
+  document.getElementById("footerAbout").textContent = uiTranslations[lang].footerAbout;
+  document.getElementById("footerCopyright").textContent = uiTranslations[lang].footerCopyright;
+  document.getElementById("sortLabel").textContent = uiTranslations[lang].sortBy;
+  document.getElementById("signUpText").textContent = uiTranslations[lang].signUp;
+  document.getElementById("loginText").textContent = uiTranslations[lang].login;
+  document.getElementById("logoutText").textContent = uiTranslations[lang].logout;
+
+  document.querySelector('.tab[data-tab="explore"]').textContent = uiTranslations[lang].explore;
+  document.querySelector('.tab[data-tab="things"]').textContent = uiTranslations[lang].travelPackages;
+  document.querySelector('.tab[data-tab="transport"]').textContent = uiTranslations[lang].transport;
+  document.querySelector('.tab[data-tab="hotels"]').textContent = uiTranslations[lang].hotels;
+
+  document.querySelector('.chip[data-category="all"]').textContent = uiTranslations[lang].all;
+  document.querySelector('.chip[data-category="boat tours"]').textContent = uiTranslations[lang].boatTours;
+  document.querySelector('.chip[data-category="temples & shrines"]').textContent = uiTranslations[lang].temples;
+  document.querySelector('.chip[data-category="multi-day tours"]').textContent = uiTranslations[lang].multiDay;
+  document.querySelector('.chip[data-category="couples"]').textContent = uiTranslations[lang].couples;
+  document.querySelector('.chip[data-category="food tours"]').textContent = uiTranslations[lang].foodTours;
+  document.querySelector('.chip[data-category="tea plantations"]').textContent = uiTranslations[lang].teaPlantations;
+  document.querySelector('.chip[data-category="day trips"]').textContent = uiTranslations[lang].dayTrips;
+
+  sortSelect.options[0].text = uiTranslations[lang].recommended;
+  sortSelect.options[1].text = uiTranslations[lang].priceLowHigh;
+  sortSelect.options[2].text = uiTranslations[lang].priceHighLow;
+  sortSelect.options[3].text = uiTranslations[lang].topRated;
+  sortSelect.options[4].text = uiTranslations[lang].nameAZ;
+
+  renderCards();
+}
+
+searchInput.addEventListener("input", renderCards);
+
+chips.forEach(chip => {
+  chip.addEventListener("click", () => {
+    chips.forEach(c => c.classList.remove("active"));
+    chip.classList.add("active");
+    selectedCategory = chip.dataset.category.toLowerCase();
+    renderCards();
+  });
+});
+
+tabs.forEach(tab => {
+  tab.addEventListener("click", () => {
+    tabs.forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
+    selectedTab = tab.dataset.tab.toLowerCase();
+    renderCards();
+  });
+});
+
+sortSelect.addEventListener("change", renderCards);
+
+languageSelect.addEventListener("change", function () {
+  applyLanguage(this.value);
+});
+
+if (accountBtn) {
+  accountBtn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    accountDropdown.style.display =
+      accountDropdown.style.display === "block" ? "none" : "block";
+  });
+}
+
+document.addEventListener("click", function () {
+  if (accountDropdown) {
+    accountDropdown.style.display = "none";
+  }
+});
+
+languageSelect.value = currentLanguage;
+applyLanguage(currentLanguage);
+checkLoginStatus();
+fetchDatabasePlaces();
+</script>
+
+</body>
+</html>

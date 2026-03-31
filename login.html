@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome! Log in</title>
+  <link rel="icon" type="image/png" href="download.png" />
+  <link rel="stylesheet" href="loginstyle.css" />
+</head>
+<body>
+
+  <div class="card">
+    <div class="left">
+      <div>
+        <div class="brand" id="brandText">Ceylon Trails</div>
+        <div class="tagline" id="taglineText">
+          Travel is the only purchase that enriches you in ways beyond material wealth.
+        </div>
+      </div>
+      <div style="opacity:.9;font-size:12px;" id="subtitleText">
+        🇱🇰 Explore Sri Lanka • Beaches • Hills • Heritage
+      </div>
+    </div>
+
+<div class="right">
+  <div>
+    <div class="title" id="titleText">Welcome</div>
+    <div class="sub" id="subText">Login with Email</div>
+  </div>
+
+  <form action="login.php" method="POST">
+    <div class="field">
+      <label for="emailInput" id="emailLabel">Email ID</label>
+      <input type="email" name="email" id="emailInput" placeholder="name@gmail.com" required>
+    </div>
+
+    <div class="field">
+      <label for="passwordInput" id="passwordLabel">Password</label>
+      <input type="password" name="password" id="passwordInput" placeholder="••••••••" required>
+    </div>
+
+    <div class="row">
+      <span>
+        <input type="checkbox" id="rem" name="remember">
+        <label for="rem" id="rememberText" style="display:inline;">Remember me</label>
+      </span>
+      <a href="#" id="forgotText">Forgot your password?</a>
+    </div>
+
+    <button class="btn" id="loginBtn" type="submit">LOGIN</button>
+  </form>
+
+  <div class="or" id="orText">OR</div>
+
+  <div class="social">
+    <button class="sbtn" type="button">G</button>
+    <button class="sbtn" type="button">f</button>
+    <button class="sbtn" type="button"></button>
+  </div>
+
+  <div class="bottom" id="bottomText">
+    Don’t have an account? <a href="Registration.html" id="registerLink">Register Now</a>
+  </div>
+</div>
+
+  <script>
+    const currentLanguage = localStorage.getItem("selectedLanguage") || "en";
+
+    const translations = {
+      en: {
+        brand: "Ceylon Trails",
+        tagline: "Travel is the only purchase that enriches you in ways beyond material wealth.",
+        subtitle: "🇱🇰 Explore Sri Lanka • Beaches • Hills • Heritage",
+        title: "Welcome",
+        sub: "Login with Email",
+        email: "Email ID",
+        password: "Password",
+        remember: "Remember me",
+        forgot: "Forgot your password?",
+        login: "LOGIN",
+        or: "OR",
+        bottom: "Don’t have an account? <a href='Registration.html'>Register Now</a>"
+      },
+      si: {
+        brand: "Ceylon Trails",
+        tagline: "සංචාරය ඔබගේ ජීවිතය අමතක නොවන අත්දැකීම්වලින් පුරවයි.",
+        subtitle: "🇱🇰 ශ්‍රී ලංකාව සොයා බලන්න • වෙරළ • කඳු • උරුමය",
+        title: "සාදරයෙන් පිළිගනිමු",
+        sub: "ඊමේල් මඟින් පිවිසෙන්න",
+        email: "ඊමේල් ලිපිනය",
+        password: "මුරපදය",
+        remember: "මතක තබා ගන්න",
+        forgot: "ඔබේ මුරපදය අමතකද?",
+        login: "පිවිසෙන්න",
+        or: "හෝ",
+        bottom: "ගිණුමක් නැද්ද? <a href='Registration.html'>ලියාපදිංචි වන්න</a>"
+      },
+      ta: {
+        brand: "Ceylon Trails",
+        tagline: "பயணம் உங்கள் வாழ்க்கையை அனுபவங்களால் வளப்படுத்தும்.",
+        subtitle: "🇱🇰 இலங்கையை கண்டறியுங்கள் • கடற்கரை • மலை • பாரம்பரியம்",
+        title: "வரவேற்கிறோம்",
+        sub: "மின்னஞ்சல் மூலம் உள்நுழைக",
+        email: "மின்னஞ்சல் முகவரி",
+        password: "கடவுச்சொல்",
+        remember: "என்னை நினைவில் கொள்ளவும்",
+        forgot: "உங்கள் கடவுச்சொல் மறந்துவிட்டதா?",
+        login: "உள்நுழைக",
+        or: "அல்லது",
+        bottom: "கணக்கு இல்லையா? <a href='Registration.html'>பதிவு செய்யவும்</a>"
+      }
+    };
+
+    const t = translations[currentLanguage] || translations.en;
+
+    document.getElementById("brandText").innerText = t.brand;
+    document.getElementById("taglineText").innerText = t.tagline;
+    document.getElementById("subtitleText").innerText = t.subtitle;
+    document.getElementById("titleText").innerText = t.title;
+    document.getElementById("subText").innerText = t.sub;
+    document.getElementById("emailLabel").innerText = t.email;
+    document.getElementById("passwordLabel").innerText = t.password;
+    document.getElementById("rememberText").innerText = t.remember;
+    document.getElementById("forgotText").innerText = t.forgot;
+    document.getElementById("loginBtn").innerText = t.login;
+    document.getElementById("orText").innerText = t.or;
+    document.getElementById("bottomText").innerHTML = t.bottom;
+  </script>
+
+</body>
+</html>

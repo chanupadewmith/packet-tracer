@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ceylon Trails Details Page</title>
+  <link rel="icon" type="image/png" href="download.png">
+  <link rel="stylesheet" href="details.css">
+
+
+</head>
+<body>
+
+  <div class="navbar">
+    <a href="index.html">Ceylon Trails</a>
+  </div>
+
+<a href="index.html" class="back-btn" id="backBtn">
+  <img src="backnice.png" alt="Back" class="back-icon">
+  <span id="backBtnText">Back to Home</span>
+</a>
+
+  <div class="details-container" id="detailsContainer">
+    <div class="left-side">
+      <img id="placeImage" class="main-image" src="" alt="">
+      <div class="content">
+        <div id="placeLocation" class="location"></div>
+        <div id="placeTitle" class="title"></div>
+        <div id="placeRating" class="rating"></div>
+        <div id="placeDescription" class="description"></div>
+
+        <h3 class="gallery-title" id="galleryTitle">More Photos</h3>
+
+        <div class="gallery">
+          <img id="gallery1" src="" alt="Gallery photo 1">
+          <img id="gallery2" src="" alt="Gallery photo 2">
+          <img id="gallery3" src="" alt="Gallery photo 3">
+        </div>
+      </div>
+    </div>
+
+    <div class="right-side">
+      <div class="booking-box">
+        <div class="booking-title" id="bookingTitle">Book this experience</div>
+
+        <div class="price">
+          <span id="fromText">From</span>
+          <strong id="placePrice">$0</strong>
+          <span id="perPersonText">/ person</span>
+        </div>
+
+        <div class="field">
+          <label for="customerName" id="nameLabel">Your Name</label>
+          <input type="text" id="customerName" placeholder="Enter your name">
+        </div>
+
+        <div class="field">
+          <label for="customerEmail" id="emailLabel">Your Email</label>
+          <input type="email" id="customerEmail" placeholder="Enter your email">
+        </div>
+
+        <div class="field">
+          <label for="customerPhone" id="phoneLabel">Your Phone</label>
+          <input type="text" id="customerPhone" placeholder="Enter your phone number">
+        </div>
+
+        <div class="field">
+          <label for="bookingDate" id="dateLabel">Select Date</label>
+          <input type="date" id="bookingDate">
+        </div>
+
+        <div class="field">
+          <label for="peopleCount" id="peopleLabel">Number of People</label>
+          <select id="peopleCount">
+            <option value="1">1 Person</option>
+            <option value="2">2 People</option>
+            <option value="3">3 People</option>
+            <option value="4">4 People</option>
+            <option value="5">5 People</option>
+          </select>
+        </div>
+
+        <div class="summary">
+          <div><strong id="summaryPlaceLabel">Place:</strong> <span id="summaryPlace"></span></div>
+          <div><strong id="summaryPriceLabel">Price per person:</strong> <span id="summaryPrice"></span></div>
+          <div><strong id="summaryPeopleLabel">People:</strong> <span id="summaryPeople">1</span></div>
+          <div><strong id="summaryTotalLabel">Total:</strong> <span id="summaryTotal"></span></div>
+        </div>
+
+        <button class="book-btn" id="bookBtn">Book Now</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const selectedPlace = JSON.parse(localStorage.getItem("selectedPlace"));
+    const peopleCount = document.getElementById("peopleCount");
+    const bookingDate = document.getElementById("bookingDate");
+    const bookBtn = document.getElementById("bookBtn");
+
+    let currentLanguage = localStorage.getItem("selectedLanguage") || "en";
+
+    const ui = {
+      en: {
+        back: "Back to Home",
+        morePhotos: "More Photos",
+        bookingTitle: "Book this experience",
+        from: "From",
+        perPerson: "/ person",
+        dateLabel: "Select Date",
+        peopleLabel: "Number of People",
+        person: "Person",
+        people: "People",
+        summaryPlace: "Place:",
+        summaryPrice: "Price per person:",
+        summaryPeople: "People:",
+        summaryTotal: "Total:",
+        bookNow: "Book Now",
+        noData: "No place selected.",
+        pleaseSelectDate: "Please select a booking date.",
+        bookingConfirmed: "Booking Confirmed!",
+        nameLabel: "Your Name",
+        emailLabel: "Your Email",
+        phoneLabel: "Your Phone",
+        enterName: "Enter your name",
+        enterEmail: "Enter your email",
+        enterPhone: "Enter your phone number",
+        loginFirst: "Please log in first to make a booking."
+      },
+      si: {
+        back: "මුල් පිටුවට",
+        morePhotos: "තවත් ඡායාරූප",
+        bookingTitle: "මෙම අත්දැකීම වෙන්කරන්න",
+        from: "සිට",
+        perPerson: "/ පුද්ගලයෙකුට",
+        dateLabel: "දිනය තෝරන්න",
+        peopleLabel: "පුද්ගලයින් ගණන",
+        person: "පුද්ගලයා",
+        people: "පුද්ගලයින්",
+        summaryPlace: "ස්ථානය:",
+        summaryPrice: "එක් පුද්ගලයෙකුගේ මිල:",
+        summaryPeople: "පුද්ගලයින්:",
+        summaryTotal: "මුළු මුදල:",
+        bookNow: "දැන් වෙන්කරන්න",
+        noData: "තෝරාගත් ස්ථානයක් නොමැත.",
+        pleaseSelectDate: "කරුණාකර දිනයක් තෝරන්න.",
+        bookingConfirmed: "වෙන් කිරීම තහවුරු විය!",
+        nameLabel: "ඔබගේ නම",
+        emailLabel: "ඔබගේ ඊමේල් ලිපිනය",
+        phoneLabel: "ඔබගේ දුරකථන අංකය",
+        enterName: "ඔබගේ නම ඇතුළත් කරන්න",
+        enterEmail: "ඔබගේ ඊමේල් ලිපිනය ඇතුළත් කරන්න",
+        enterPhone: "ඔබගේ දුරකථන අංකය ඇතුළත් කරන්න",
+        loginFirst: "වෙන් කිරීම සඳහා කරුණාකර පළමුව ලොගින් වන්න."
+      },
+      ta: {
+        back: "முகப்புப் பக்கத்துக்கு",
+        morePhotos: "மேலும் புகைப்படங்கள்",
+        bookingTitle: "இந்த அனுபவத்தை முன்பதிவு செய்யுங்கள்",
+        from: "இருந்து",
+        perPerson: "/ ஒருவருக்கு",
+        dateLabel: "தேதியைத் தேர்ந்தெடுக்கவும்",
+        peopleLabel: "மக்கள் எண்ணிக்கை",
+        person: "நபர்",
+        people: "நபர்கள்",
+        summaryPlace: "இடம்:",
+        summaryPrice: "ஒருவருக்கான விலை:",
+        summaryPeople: "நபர்கள்:",
+        summaryTotal: "மொத்தம்:",
+        bookNow: "இப்போது முன்பதிவு செய்க",
+        noData: "தேர்ந்தெடுக்கப்பட்ட இடம் இல்லை.",
+        pleaseSelectDate: "தயவுசெய்து தேதியைத் தேர்ந்தெடுக்கவும்.",
+        bookingConfirmed: "முன்பதிவு உறுதிசெய்யப்பட்டது!",
+        nameLabel: "உங்கள் பெயர்",
+        emailLabel: "உங்கள் மின்னஞ்சல்",
+        phoneLabel: "உங்கள் தொலைபேசி எண்",
+        enterName: "உங்கள் பெயரை உள்ளிடவும்",
+        enterEmail: "உங்கள் மின்னஞ்சலை உள்ளிடவும்",
+        enterPhone: "உங்கள் தொலைபேசி எண்ணை உள்ளிடவும்",
+        loginFirst: "முன்பதிவு செய்ய முதலில் உள்நுழையவும்."
+      }
+    };
+
+    async function checkLoginAndFillUser() {
+      try {
+        const response = await fetch("session_user.php");
+        const data = await response.json();
+
+        if (!data.loggedIn) {
+          alert(ui[currentLanguage].loginFirst);
+          window.location.href = "login.html";
+          return;
+        }
+
+        document.getElementById("customerName").value = data.user.full_name || "";
+        document.getElementById("customerEmail").value = data.user.email || "";
+        document.getElementById("customerPhone").value = data.user.phone || "";
+
+        document.getElementById("customerName").readOnly = true;
+        document.getElementById("customerEmail").readOnly = true;
+        document.getElementById("customerPhone").readOnly = true;
+      } catch (error) {
+        console.error(error);
+        alert("Unable to check login.");
+      }
+    }
+
+    function getTranslated(field) {
+      if (!selectedPlace) return "";
+      return selectedPlace[field + "_" + currentLanguage] ||
+             selectedPlace[field + "_en"] ||
+             selectedPlace[field] ||
+             "";
+    }
+
+    function getMainImage() {
+      if (!selectedPlace) return "";
+      return selectedPlace.main_image || selectedPlace.image || "";
+    }
+
+    function getGalleryImage(number) {
+      if (!selectedPlace) return "";
+      return selectedPlace["photo" + number] || getMainImage();
+    }
+
+    function updatePeopleOptions() {
+      const labels = ui[currentLanguage];
+      const currentValue = peopleCount.value;
+
+      peopleCount.innerHTML = `
+        <option value="1">1 ${labels.person}</option>
+        <option value="2">2 ${labels.people}</option>
+        <option value="3">3 ${labels.people}</option>
+        <option value="4">4 ${labels.people}</option>
+        <option value="5">5 ${labels.people}</option>
+      `;
+
+      peopleCount.value = currentValue || "1";
+    }
+
+    function applyUIText() {
+      const labels = ui[currentLanguage];
+
+      document.documentElement.lang = currentLanguage;
+      document.getElementById("backBtnText").textContent = labels.back;
+      document.getElementById("galleryTitle").textContent = labels.morePhotos;
+      document.getElementById("bookingTitle").textContent = labels.bookingTitle;
+      document.getElementById("fromText").textContent = labels.from;
+      document.getElementById("perPersonText").textContent = labels.perPerson;
+      document.getElementById("dateLabel").textContent = labels.dateLabel;
+      document.getElementById("peopleLabel").textContent = labels.peopleLabel;
+      document.getElementById("summaryPlaceLabel").textContent = labels.summaryPlace;
+      document.getElementById("summaryPriceLabel").textContent = labels.summaryPrice;
+      document.getElementById("summaryPeopleLabel").textContent = labels.summaryPeople;
+      document.getElementById("summaryTotalLabel").textContent = labels.summaryTotal;
+      document.getElementById("bookBtn").textContent = labels.bookNow;
+
+      document.getElementById("nameLabel").textContent = labels.nameLabel;
+      document.getElementById("emailLabel").textContent = labels.emailLabel;
+      document.getElementById("phoneLabel").textContent = labels.phoneLabel;
+
+      document.getElementById("customerName").placeholder = labels.enterName;
+      document.getElementById("customerEmail").placeholder = labels.enterEmail;
+      document.getElementById("customerPhone").placeholder = labels.enterPhone;
+
+      updatePeopleOptions();
+    }
+
+    function renderDetails() {
+      if (!selectedPlace) {
+        document.getElementById("detailsContainer").innerHTML = `<div class="no-data">${ui[currentLanguage].noData}</div>`;
+        return;
+      }
+
+      const title = getTranslated("title");
+      const location = getTranslated("location");
+      const category = getTranslated("category");
+      const description = getTranslated("description");
+      const price = Number(selectedPlace.price) || 0;
+      const rating = selectedPlace.rating || 0;
+
+      document.getElementById("placeImage").src = getMainImage();
+      document.getElementById("placeImage").alt = title;
+
+      document.getElementById("placeLocation").textContent = location + " • " + category;
+      document.getElementById("placeTitle").textContent = title;
+      document.getElementById("placeRating").textContent = "★ " + rating;
+      document.getElementById("placeDescription").textContent = description;
+      document.getElementById("placePrice").textContent = "$" + price;
+
+      document.getElementById("summaryPlace").textContent = title;
+      document.getElementById("summaryPrice").textContent = "$" + price;
+
+      document.getElementById("gallery1").src = getGalleryImage(1);
+      document.getElementById("gallery2").src = getGalleryImage(2);
+      document.getElementById("gallery3").src = getGalleryImage(3);
+
+      document.getElementById("gallery1").alt = title + " photo 1";
+      document.getElementById("gallery2").alt = title + " photo 2";
+      document.getElementById("gallery3").alt = title + " photo 3";
+
+      updateTotal();
+    }
+
+    function updateTotal() {
+      if (!selectedPlace) return;
+
+      const people = parseInt(peopleCount.value) || 1;
+      const price = Number(selectedPlace.price) || 0;
+      const total = price * people;
+
+      document.getElementById("summaryPeople").textContent = people;
+      document.getElementById("summaryTotal").textContent = "$" + total;
+    }
+
+    async function bookNow() {
+      if (!selectedPlace) return;
+
+      const date = bookingDate.value;
+      const people = parseInt(peopleCount.value) || 1;
+      const price = Number(selectedPlace.price) || 0;
+      const total = price * people;
+      const title = getTranslated("title");
+      const placeId = selectedPlace.id || 0;
+
+      if (!date) {
+        alert(ui[currentLanguage].pleaseSelectDate);
+        return;
+      }
+
+      if (placeId === 0) {
+        alert("Place ID not found. Please open this place from the home page.");
+        return;
+      }
+
+      try {
+        const response = await fetch("save_order.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            place_id: placeId,
+            place_title: title,
+            booking_date: date,
+            people_count: people,
+            price_per_person: price,
+            total_price: total
+          })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          alert(
+            ui[currentLanguage].bookingConfirmed + "\n\n" +
+            ui[currentLanguage].summaryPlace + " " + title + "\n" +
+            ui[currentLanguage].dateLabel + " " + date + "\n" +
+            ui[currentLanguage].summaryPeople + " " + people + "\n" +
+            ui[currentLanguage].summaryTotal + " $" + total
+          );
+
+          bookingDate.value = "";
+          peopleCount.value = "1";
+          updateTotal();
+        } else {
+          alert(result.message || "Failed to save booking.");
+          if (result.message === "Please log in first.") {
+            window.location.href = "login.html";
+          }
+        }
+      } catch (error) {
+        alert("Server error. Booking not saved.");
+        console.error(error);
+      }
+    }
+
+    peopleCount.addEventListener("change", updateTotal);
+    bookBtn.addEventListener("click", bookNow);
+
+    applyUIText();
+    renderDetails();
+    checkLoginAndFillUser();
+  </script>
+</body>
+</html>
